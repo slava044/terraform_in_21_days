@@ -55,7 +55,6 @@ resource "aws_nat_gateway" "natg" {
     Name = "natg${count.index + 1}"
   }
 
-
   depends_on = [aws_internet_gateway.class]
 
 }
@@ -69,8 +68,6 @@ resource "aws_eip" "nat" {
     Name = "nat${count.index + 1}"
   }
 }
-
-
 
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.class.id
@@ -105,4 +102,3 @@ resource "aws_route_table_association" "private" {
   subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private[count.index].id
 }
-
