@@ -51,7 +51,7 @@ resource "aws_nat_gateway" "natg" {
   subnet_id     = aws_subnet.public[count.index].id
 
   tags = {
-    Name = "${var.env_prefix}-nat${count.index+1}"
+    Name = "${var.env_prefix}-nat${count.index + 1}"
   }
 
   depends_on = [aws_internet_gateway.class]
@@ -98,6 +98,6 @@ resource "aws_route_table_association" "public" {
 resource "aws_route_table_association" "private" {
   count = length(var.private_subnet_cidr)
 
-  subnet_id      = aws_subnet.public[count.index].id
+  subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private[count.index].id
 }
