@@ -17,4 +17,3 @@ variable "env_prefix" {
 variable "availability_zones" {
 
 }
-
