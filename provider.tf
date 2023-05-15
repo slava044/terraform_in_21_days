@@ -5,8 +5,14 @@ terraform {
       version = "~> 4.0"
     }
   }
+backend "s3" {
+    bucket         = "tfremote-state-bucket"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform_state_lock"
+  }
 }
-
+  
 
 provider "aws" {
   region  = "us-east-1"
