@@ -27,7 +27,6 @@ resource "aws_instance" "public" {
   key_name                    = "class"
   vpc_security_group_ids      = [aws_security_group.public.id]
   associate_public_ip_address = true
-  user_data                   = file("userdata.sh")
   subnet_id                   = data.terraform_remote_state.level1.outputs.public_subnet_id[count.index]
 
   tags = {
@@ -46,14 +45,6 @@ resource "aws_security_group" "public" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["108.216.6.65/32"]
-  }
-
-  ingress {
-    description = "HTTP from public"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    security_groups = [aws_security_group.load_balancer.id]
   }
 
   ingress {
@@ -81,6 +72,7 @@ resource "aws_instance" "private" {
   ami                    = data.aws_ami.amazonLinux.id
   instance_type          = "t3.micro"
   key_name               = "class"
+  user_data              = file("userdata.sh")
   vpc_security_group_ids = [aws_security_group.private.id]
   subnet_id              = data.terraform_remote_state.level1.outputs.private_subnet_id[0]
 
@@ -99,9 +91,16 @@ resource "aws_security_group" "private" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [var.vpc_cidr_block]
+    cidr_blocks = [data.terraform_remote_state.level1.outputs.vpc_cidr]
   }
 
+  ingress {
+    description     = "HTTP from LB "
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    security_groups = [aws_security_group.load_balancer.id]
+  }
   egress {
     from_port        = 0
     to_port          = 0
