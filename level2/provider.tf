@@ -5,7 +5,7 @@ terraform {
       version = "~> 4.0"
     }
   }
-  
+
   backend "s3" {
     bucket         = "tfremote-state-bucket"
     key            = "level2.tfstate"

@@ -6,4 +6,4 @@ data "terraform_remote_state" "level1" {
     key    = "level1.tfstate"
     region = "us-east-1"
   }
-  
+}
