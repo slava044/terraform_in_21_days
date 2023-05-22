@@ -1,5 +1,6 @@
 resource "aws_lb" "main" {
   name               = "${var.env_prefix}-load-balancer"
+  internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.load_balancer.id]
   subnets            = data.terraform_remote_state.level1.outputs.public_subnet_id[*]
@@ -51,6 +52,12 @@ resource "aws_lb_target_group" "main" {
     interval            = 5
     matcher             = "200"
   }
+}
+
+resource "aws_lb_target_group_attachment" "main" {
+  target_group_arn = aws_lb_target_group.main.arn
+  target_id        = aws_instance.private.id
+  port             = 80
 }
 
 resource "aws_lb_listener" "main" {
