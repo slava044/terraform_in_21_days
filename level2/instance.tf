@@ -18,7 +18,6 @@ data "aws_ami" "amazonLinux" {
   }
 }
 
-
 resource "aws_instance" "public" {
   count = 2
 
@@ -95,6 +94,7 @@ resource "aws_security_group" "private" {
   }
 
   ingress {
+    description     = "HTTP form load balancer"
     description     = "HTTP from LB "
     from_port       = 80
     to_port         = 80
