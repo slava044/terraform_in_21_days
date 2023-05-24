@@ -1,9 +1,9 @@
 resource "aws_launch_configuration" "main" {
-  name            = var.env_prefix
-  image_id        = data.aws_ami.amazonLinux.id
-  instance_type   = "t3.micro"
-  security_groups = [aws_security_group.private.id]
-  user_data       = file("userdata.sh")
+  name                 = var.env_prefix
+  image_id             = data.aws_ami.amazonLinux.id
+  instance_type        = "t3.micro"
+  security_groups      = [aws_security_group.private.id]
+  user_data            = file("userdata.sh")
   iam_instance_profile = aws_iam_instance_profile.main.name
 }
 
