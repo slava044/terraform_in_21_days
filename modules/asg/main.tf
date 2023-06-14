@@ -1,5 +1,5 @@
 resource "aws_security_group" "private" {
-  name        = "${var.env_prefix}-private"
+  name        = "${var.env_code}-private"
   description = "Allow ssh inbound from vpc"
   vpc_id      = var.vpc_id
 
@@ -19,13 +19,13 @@ resource "aws_security_group" "private" {
   }
 
   tags = {
-    Name = "${var.env_prefix}-private"
+    Name = "${var.env_code}-private"
   }
 
 }
 
 resource "aws_launch_configuration" "main" {
-  name                 = var.env_prefix
+  name                 = var.env_code
   image_id             = var.ami_id
   instance_type        = "t3.micro"
   security_groups      = [aws_security_group.private.id]
@@ -34,7 +34,7 @@ resource "aws_launch_configuration" "main" {
 }
 
 resource "aws_autoscaling_group" "main" {
-  name                      = var.env_prefix
+  name                      = var.env_code
   max_size                  = 3
   min_size                  = 2
   desired_capacity          = 2
@@ -47,7 +47,7 @@ resource "aws_autoscaling_group" "main" {
 
   tag {
     key                 = "Name"
-    value               = var.env_prefix
+    value               = var.env_code
     propagate_at_launch = true
   }
 }

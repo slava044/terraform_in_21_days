@@ -1,4 +1,4 @@
-variable "env_prefix" {}
+variable "env_code" {}
 
 variable "ami_id" {}
 

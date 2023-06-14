@@ -1,7 +1,7 @@
 module "vpc" {
   source = "../modules/vpc"
 
-  env_prefix         = var.env_prefix
+  env_code           = var.env_code
   vpc_cidr           = var.vpc_cidr
   public_cidr        = var.public_cidr
   private_cidr       = var.private_cidr

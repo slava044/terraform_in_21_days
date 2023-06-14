@@ -10,7 +10,7 @@ variable "private_cidr" {
 
 }
 
-variable "env_prefix" {
+variable "env_code" {
 
 }
 

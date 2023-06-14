@@ -1,17 +1,17 @@
 resource "aws_lb" "main" {
-  name               = "${var.env_prefix}-load-balancer"
+  name               = "${var.env_code}-load-balancer"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.load_balancer.id]
   subnets            = var.public_subnet_id
 
   tags = {
-    Name = "${var.env_prefix}-main"
+    Name = "${var.env_code}-main"
   }
 }
 
 resource "aws_security_group" "load_balancer" {
-  name        = "${var.env_prefix}-lb"
+  name        = "${var.env_code}-lb"
   description = "Allow port 80 TCP inbound traffic"
   vpc_id      = var.vpc_id
 
@@ -31,12 +31,12 @@ resource "aws_security_group" "load_balancer" {
   }
 
   tags = {
-    Name = "${var.env_prefix}-load_balancer"
+    Name = "${var.env_code}-load_balancer"
   }
 }
 
 resource "aws_lb_target_group" "main" {
-  name     = var.env_prefix
+  name     = var.env_code
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
@@ -83,7 +83,7 @@ resource "aws_acm_certificate" "main" {
   validation_method = "DNS"
 
    tags = {
-    Name = var.env_prefix
+    Name = var.env_code
    }
 }
 
