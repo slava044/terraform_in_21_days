@@ -49,7 +49,6 @@ resource "aws_nat_gateway" "natg" {
   }
 
   depends_on = [aws_internet_gateway.main]
-
 }
 
 resource "aws_eip" "nat" {
