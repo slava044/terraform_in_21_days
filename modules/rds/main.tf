@@ -5,7 +5,6 @@ resource "aws_db_subnet_group" "main" {
     tags = {
        Name  = var.env_code
   }
-
 }
 
 resource "aws_security_group" "main" {
@@ -17,9 +16,7 @@ resource "aws_security_group" "main" {
         to_port         = 3306
         protocol        = "tcp"
         security_groups = [var.source_security_group]
-
   }
-
 }
 
 resource "aws_db_instance" "main" {

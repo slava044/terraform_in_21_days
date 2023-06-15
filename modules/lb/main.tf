@@ -102,7 +102,6 @@ resource "aws_route53_record" "domain_validation" {
   ttl             = 60
   type            = each.value.type
   zone_id         = data.aws_route53_zone.main.zone_id
-
 }
 
 resource "aws_acm_certificate_validation" "cert_validation" {

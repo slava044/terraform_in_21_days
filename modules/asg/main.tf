@@ -21,7 +21,6 @@ resource "aws_security_group" "private" {
   tags = {
     Name = "${var.env_code}-private"
   }
-
 }
 
 resource "aws_launch_configuration" "main" {

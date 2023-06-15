@@ -4,7 +4,6 @@ data "aws_secretsmanager_secret_version" "main" {
 
 data "aws_secretsmanager_secret" "rds_password" {
   name = "main/rds/password"
-
 }
 
 locals {
