@@ -2,7 +2,7 @@ resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
 
   tags = {
-    Name = "${var.env_prefix}-vpc"
+    Name = "${var.env_code}-vpc"
   }
 }
 
@@ -14,7 +14,7 @@ resource "aws_subnet" "public" {
   availability_zone = var.availability_zones[count.index]
 
   tags = {
-    Name = "${var.env_prefix}-public${count.index + 1}"
+    Name = "${var.env_code}-public${count.index + 1}"
   }
 }
 
@@ -26,7 +26,7 @@ resource "aws_subnet" "private" {
   availability_zone = var.availability_zones[count.index]
 
   tags = {
-    Name = "${var.env_prefix}-private${count.index + 1}"
+    Name = "${var.env_code}-private${count.index + 1}"
   }
 }
 
@@ -34,7 +34,7 @@ resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "${var.env_prefix}-main"
+    Name = "${var.env_code}-main"
   }
 }
 
@@ -45,11 +45,10 @@ resource "aws_nat_gateway" "natg" {
   subnet_id     = aws_subnet.public[count.index].id
 
   tags = {
-    Name = "${var.env_prefix}-nat${count.index + 1}"
+    Name = "${var.env_code}-nat${count.index + 1}"
   }
 
   depends_on = [aws_internet_gateway.main]
-
 }
 
 resource "aws_eip" "nat" {
@@ -58,7 +57,7 @@ resource "aws_eip" "nat" {
   vpc = true
 
   tags = {
-    Name = "${var.env_prefix}-nat${count.index + 1}"
+    Name = "${var.env_code}-nat${count.index + 1}"
   }
 }
 

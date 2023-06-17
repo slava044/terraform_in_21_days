@@ -7,6 +7,9 @@ variable "public_cidr" {
 variable "private_cidr" {
 }
 
+variable "env_code" {
+}
+
 variable "env_prefix" {
 }
 
